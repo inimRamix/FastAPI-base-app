@@ -1,13 +1,20 @@
-services:
+volumes:
+  pgdata:
 
+
+services:
   pg:
-    image: postgres
+    image: postgres:16.9
     environment:
-      POSTGRES_DB: myDb
-      POSTGRES_USER: myUser
-      POSTGRES_PASSWORD: myPassword
+      POSTGRES_DB: my_database
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: my_password
+#      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+#    command: postgres -c listen_addresses='*'
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   adminer:
     image: adminer
